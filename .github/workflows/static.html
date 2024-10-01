@@ -23,6 +23,15 @@
     const scene = new THREE.Scene();
     const camera = new ZapparThree.Camera();
     scene.add(camera);
+    ZapparThree.permissionRequestUI().then(granted => {
+  if (granted) {
+    ZapparThree.permissionRequestUI().then(() => {
+      camera.start();
+    });
+  } else {
+    ZapparThree.permissionDeniedUI();
+  }
+});
 
     // Инициализация источника трекинга (например, QR-код или изображение)
     const tracker = new ZapparThree.ImageTrackerLoader().load('https://github.com/vorrym/IndividualProject/blob/main/photo.png.zpt');
